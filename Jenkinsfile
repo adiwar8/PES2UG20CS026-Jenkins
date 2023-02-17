@@ -1,31 +1,33 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Starting Build'
-                sh 'make -C main'
-                echo 'Build Completed'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Starting Testing'
-                sh '/var/jenkins_home/workspace/PES2UG20CS026-1/main/PES2UG20CS026-1'
-                echo 'Test Completed'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Starting Deploy'
-                echo 'Deploy Completed'
-            }
-        }
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'g++ main/PES2UG20CS026-1.cpp -o output'
+        build 'PES2UG20CS026-1'
+        echo 'Build Successful'
+      }
     }
+    stage('Test') {
+      steps {
+        sh './output'
+        echo 'Testing Successful'
+      }
+    }
+    stage('Deploy') {
+      when {
+        expression {
+          currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+        }
+      }
+      steps {
+        echo 'Deployment Successful'
+      }
+    }
+  }
   post {
     failure {
-      echo 'Pipeline Failed'
-    }
-  }
+      echo 'Pipeline failed'
+    }
+  }
 }
