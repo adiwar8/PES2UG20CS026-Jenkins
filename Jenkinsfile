@@ -10,7 +10,7 @@ pipeline {
 	 	}
 		 stage('Test') {
 			 steps {
-			 ph './PES2UG20CS025-1'
+			 ph './PES2UG20CS026-1'
 			 echo 'Testing stage has been completed successfully'
 			 }
 		 }
