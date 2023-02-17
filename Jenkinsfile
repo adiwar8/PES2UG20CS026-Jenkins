@@ -10,12 +10,11 @@ pipeline {
         stage('Test') {
             steps {
                 sh './pes2ug20cs026.exe'
-            }
-            
+            }       
         stage('Deploy'){
-			steps{
-				echo 'Deployed Successfully'
-			}
+		steps{
+			echo 'Deployed Successfully'
+		}
         }
     }
     post {
